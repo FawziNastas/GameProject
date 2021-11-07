@@ -24,7 +24,8 @@ public class CharacterControl : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0f);
+        Vector3 direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+        
         transform.Translate(direction * _speed * Time.deltaTime);
     }
 }

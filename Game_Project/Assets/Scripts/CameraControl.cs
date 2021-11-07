@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    public float rotationSpeed;
+    public float horizontalRotationSpeed = 100f, verticalRotationSpeed = 50f;
+    public Transform player;
+    float rotateX, rotateY;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,8 +16,12 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float y = Input.GetAxis("Mouse X");
-        float x = Input.GetAxis("Mouse Y");
-        this.transform.eulerAngles += new Vector3(-x, y, 0) * rotationSpeed * Time.deltaTime;
+        rotateY += Input.GetAxis("Mouse X") * horizontalRotationSpeed * Time.deltaTime;
+        rotateX += Input.GetAxis("Mouse Y") * verticalRotationSpeed * Time.deltaTime;
+        rotateX = Mathf.Clamp(rotateX, 0f, 40f); //restrict up and down movement for camera
+
+        transform.eulerAngles = new Vector3(-rotateX, rotateY, 0f);
+
+        this.transform.position = player.position;
     }
 }
