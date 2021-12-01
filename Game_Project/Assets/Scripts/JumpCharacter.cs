@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class JumpCharacter : MonoBehaviour
 {
-    public float jumpForce = 20;
-    public float gravity = -9.81f;
-    float velocity;
+    public float jumpForce = 20f;
+    bool isGrounded;
+    bool jumpPressed;
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +17,26 @@ public class JumpCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        velocity += gravity * Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space))
-        {
-            velocity = jumpForce;
-        }
+            jumpPressed = true;
+    }
 
-        transform.Translate(new Vector3(0, velocity, 0) * Time.deltaTime);
+    private void FixedUpdate()
+    {
+        if(jumpPressed && isGrounded)
+        {
+            GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            jumpPressed = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        isGrounded = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isGrounded = false;
     }
 }

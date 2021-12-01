@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class CharacterControl : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 3.5f;
     
+    private float speed = 5f;
+    public Transform cameraPos;
+    Vector3 move;
+    Rigidbody rigidBody;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -24,8 +26,19 @@ public class CharacterControl : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+
+        Vector3 cameraToPlayer = (this.transform.position - cameraPos.position).normalized;
+        cameraToPlayer.y = 0; //ignore the y axis 
+
+        move = (cameraToPlayer * verticalInput + cameraPos.transform.right * horizontalInput) * speed;
+        Vector3 lookDirection = move + this.transform.position;
+        this.transform.LookAt(lookDirection);
+    }
+
+    private void FixedUpdate()
+    {
+        move.y = rigidBody.velocity.y;
+        rigidBody.velocity = move;
         
-        transform.Translate(direction * _speed * Time.deltaTime);
     }
 }
