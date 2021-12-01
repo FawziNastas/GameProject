@@ -41,4 +41,9 @@ public class CharacterControl : MonoBehaviour
         rigidBody.velocity = move;
         
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+    }
 }
