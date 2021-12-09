@@ -9,11 +9,12 @@ public class CharacterControl : MonoBehaviour
     public Transform cameraPos;
     Vector3 move;
     Rigidbody rigidBody;
-
+    
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
@@ -45,8 +46,4 @@ void calculateMovement()
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Destroy(other.gameObject);
-    }
 }
