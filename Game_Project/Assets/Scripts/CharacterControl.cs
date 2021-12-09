@@ -20,9 +20,12 @@ public class CharacterControl : MonoBehaviour
     void Update()
     {
         calculateMovement();
+
     }
 
-    void calculateMovement()
+
+
+void calculateMovement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -39,7 +42,7 @@ public class CharacterControl : MonoBehaviour
     {
         move.y = rigidBody.velocity.y;
         rigidBody.velocity = move;
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
