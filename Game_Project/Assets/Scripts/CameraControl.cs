@@ -18,7 +18,7 @@ public class CameraControl : MonoBehaviour
     {
         rotateY += Input.GetAxis("Mouse X") * horizontalRotationSpeed * Time.deltaTime;
         rotateX += Input.GetAxis("Mouse Y") * verticalRotationSpeed * Time.deltaTime;
-        rotateX = Mathf.Clamp(rotateX, 0f, 40f); //restrict up and down movement for camera
+        rotateX = Mathf.Clamp(rotateX, -40f, 40f); //restrict up and down movement for camera
 
         transform.eulerAngles = new Vector3(-rotateX, rotateY, 0f);
 
