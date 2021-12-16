@@ -39,4 +39,15 @@ public class JumpCharacter : MonoBehaviour
     {
         isGrounded = false;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Super Mushroom")
+            jumpForce = 30;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        jumpForce = 8;
+    }
 }

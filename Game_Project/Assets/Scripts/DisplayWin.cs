@@ -35,10 +35,17 @@ public class DisplayWin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
-        Vector3 position = new Vector3(Random.Range(penSize.bounds.min.x, penSize.bounds.max.x), 0, Random.Range(
-            penSize.bounds.min.z, penSize.bounds.max.z));
-        Instantiate(other.gameObject, position, Quaternion.identity); //create chicken inside the pen
-        ++count;
+        if (other.tag == "Chicken")
+        {
+            Destroy(other.gameObject);
+            Vector3 position = new Vector3(Random.Range(penSize.bounds.min.x, penSize.bounds.max.x), 0, Random.Range(
+                penSize.bounds.min.z, penSize.bounds.max.z));
+            GameObject chick = Instantiate(other.gameObject, position, Quaternion.identity); //create chicken inside the pen
+            if (chick.GetComponent<ChickenControl>() != null)
+                Destroy(chick.GetComponent<ChickenControl>());//remove walking script
+
+            chick.AddComponent<Hop>(); //make chickens jump at end
+            ++count;
+        }
     }
 }
